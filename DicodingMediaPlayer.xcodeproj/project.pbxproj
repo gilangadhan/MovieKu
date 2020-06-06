@@ -30,7 +30,7 @@
 		2A26638C244549C5009564DC /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A26638B244549C5009564DC /* MovieTableViewCell.swift */; };
 		2A266393244585F9009564DC /* DetailTvViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A266392244585F9009564DC /* DetailTvViewController.swift */; };
 		2A2663952445860D009564DC /* DetailMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2663942445860D009564DC /* DetailMovieViewController.swift */; };
-		4636E3CC6B372ADC0DA2419C /* Pods_DicodingMediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76117B02405A1ED5DE28BDE2 /* Pods_DicodingMediaPlayer.framework */; };
+		2A9F06F824878C300061313A /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F06F724878C300061313A /* ViewExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,9 +59,7 @@
 		2A26638B244549C5009564DC /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		2A266392244585F9009564DC /* DetailTvViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTvViewController.swift; sourceTree = "<group>"; };
 		2A2663942445860D009564DC /* DetailMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMovieViewController.swift; sourceTree = "<group>"; };
-		76117B02405A1ED5DE28BDE2 /* Pods_DicodingMediaPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DicodingMediaPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AFEC27969CAEEAC4A053679F /* Pods-DicodingMediaPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DicodingMediaPlayer.release.xcconfig"; path = "Target Support Files/Pods-DicodingMediaPlayer/Pods-DicodingMediaPlayer.release.xcconfig"; sourceTree = "<group>"; };
-		C485DA2F52815097C7301033 /* Pods-DicodingMediaPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DicodingMediaPlayer.debug.xcconfig"; path = "Target Support Files/Pods-DicodingMediaPlayer/Pods-DicodingMediaPlayer.debug.xcconfig"; sourceTree = "<group>"; };
+		2A9F06F724878C300061313A /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +67,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4636E3CC6B372ADC0DA2419C /* Pods_DicodingMediaPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,8 +87,6 @@
 			children = (
 				2A2663582443E62E009564DC /* MovieKu */,
 				2A2663572443E62E009564DC /* Products */,
-				52930C27E5C96D1958469A74 /* Pods */,
-				D3EB7E53472AA40096EB60D5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -140,6 +135,7 @@
 		2A2663742443E668009564DC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				2A9F06F624878C180061313A /* Helper */,
 				2A26638124442305009564DC /* Favorite */,
 				2A266380244422FE009564DC /* Tv */,
 				2A26637F244422F9009564DC /* Movie */,
@@ -245,22 +241,12 @@
 			path = Movie;
 			sourceTree = "<group>";
 		};
-		52930C27E5C96D1958469A74 /* Pods */ = {
+		2A9F06F624878C180061313A /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				C485DA2F52815097C7301033 /* Pods-DicodingMediaPlayer.debug.xcconfig */,
-				AFEC27969CAEEAC4A053679F /* Pods-DicodingMediaPlayer.release.xcconfig */,
+				2A9F06F724878C300061313A /* ViewExtension.swift */,
 			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		D3EB7E53472AA40096EB60D5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				76117B02405A1ED5DE28BDE2 /* Pods_DicodingMediaPlayer.framework */,
-			);
-			name = Frameworks;
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,11 +256,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2A26636F2443E635009564DC /* Build configuration list for PBXNativeTarget "DicodingMediaPlayer" */;
 			buildPhases = (
-				83C6C1E6C5544FDBDD32E50B /* [CP] Check Pods Manifest.lock */,
 				2A2663522443E62E009564DC /* Sources */,
 				2A2663532443E62E009564DC /* Frameworks */,
 				2A2663542443E62E009564DC /* Resources */,
-				A15B4CB875354E1114B72082 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -331,48 +315,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		83C6C1E6C5544FDBDD32E50B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-DicodingMediaPlayer-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A15B4CB875354E1114B72082 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DicodingMediaPlayer/Pods-DicodingMediaPlayer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DicodingMediaPlayer/Pods-DicodingMediaPlayer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DicodingMediaPlayer/Pods-DicodingMediaPlayer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		2A2663522443E62E009564DC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -381,6 +323,7 @@
 				2A027D132446EEAA00CE58AB /* MovieFavoriteTableViewCell.swift in Sources */,
 				2A26638824454759009564DC /* MovieData.swift in Sources */,
 				2A26637E2444196C009564DC /* ConverterJSON.swift in Sources */,
+				2A9F06F824878C300061313A /* ViewExtension.swift in Sources */,
 				2A26638C244549C5009564DC /* MovieTableViewCell.swift in Sources */,
 				2A2663602443E62E009564DC /* TvViewController.swift in Sources */,
 				2A2663662443E62E009564DC /* MovieKu.xcdatamodeld in Sources */,
@@ -539,7 +482,6 @@
 		};
 		2A2663702443E635009564DC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C485DA2F52815097C7301033 /* Pods-DicodingMediaPlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -558,7 +500,6 @@
 		};
 		2A2663712443E635009564DC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AFEC27969CAEEAC4A053679F /* Pods-DicodingMediaPlayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

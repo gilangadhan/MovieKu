@@ -11,7 +11,8 @@ import CoreData
 
 class TvFavoriteViewController: UIViewController {
     
-    @IBOutlet weak var favoriteMovieTableView: UITableView!
+    @IBOutlet weak var favoriteTvTableView: UITableView!
+    @IBOutlet weak var emptyView: UIView!
     
     var listTv: [TvEntities] = []
     var selectedTv: TvModel?
@@ -21,19 +22,31 @@ class TvFavoriteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        favoriteMovieTableView.dataSource = self
-        favoriteMovieTableView.delegate = self
+        favoriteTvTableView.dataSource = self
+        favoriteTvTableView.delegate = self
+        favoriteTvTableView.rowHeight = UITableView.automaticDimension
+        favoriteTvTableView.estimatedRowHeight = UITableView.automaticDimension
+    
+        emptyView.visibility = .visible
+        favoriteTvTableView.visibility = .gone
     }
     
     override func viewWillAppear(_ animated: Bool) {
         do {
             let memberFect = NSFetchRequest<NSFetchRequestResult>(entityName: "TvEntities")
             listTv = try context.fetch(memberFect) as! [TvEntities]
+            if listTv.count > 0 {
+                emptyView.visibility = .gone
+                favoriteTvTableView.visibility = .visible
+            } else {
+                emptyView.visibility = .visible
+                favoriteTvTableView.visibility = .gone
+            }
         } catch {
             print(error.localizedDescription)
         }
         
-        self.favoriteMovieTableView.reloadData()
+        self.favoriteTvTableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
@@ -47,7 +60,7 @@ class TvFavoriteViewController: UIViewController {
 
 extension TvFavoriteViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.listTv.count
+        return self.listTv.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

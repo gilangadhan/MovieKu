@@ -17,6 +17,8 @@ class TvViewController: UIViewController {
     let searchController = UISearchController(searchResultsController: nil)
     
     @IBOutlet weak var tvTableView: UITableView!
+    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var emptyImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +29,12 @@ class TvViewController: UIViewController {
         tvTableView.dataSource = self
         tvTableView.delegate = self
         tvTableView.tableHeaderView = searchController.searchBar
+        tvTableView.rowHeight = UITableView.automaticDimension
+        tvTableView.estimatedRowHeight = UITableView.automaticDimension
+
+        
+        emptyView.visibility = .visible
+        tvTableView.visibility = .gone
         
         self.navigationItem.title = "On The Air"
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.14, green: 0.86, blue: 0.73, alpha: 1.0)
@@ -36,6 +44,7 @@ class TvViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        emptyImage.image = UIImage(named: "loading")
         apiManager.delegate = self
         apiManager.fetchTvToday()
     }
@@ -53,8 +62,16 @@ extension TvViewController: APIManagerDelegate {
     func didUpdateResult(_ apiManager: APIManager, result: Data) {
         DispatchQueue.main.async {
             if let list = parseJSONTvAll(result){
-                self.listTv = list
-                self.tvTableView.reloadData()
+                if list.count > 0 {
+                    self.listTv = list
+                    self.tvTableView.reloadData()
+                    self.emptyView.visibility = .gone
+                    self.tvTableView.visibility = .visible
+                } else {
+                    self.emptyView.visibility = .visible
+                    self.tvTableView.visibility = .gone
+                }
+                self.emptyImage.image = UIImage(named: "emptyList")
             }
         }
     }
@@ -77,7 +94,7 @@ extension TvViewController: UISearchResultsUpdating{
 
 extension TvViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.listTv.count
+        return self.listTv.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

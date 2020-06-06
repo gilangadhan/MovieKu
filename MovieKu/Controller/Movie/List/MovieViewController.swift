@@ -17,6 +17,8 @@ class MovieViewController: UIViewController {
     let searchController = UISearchController(searchResultsController: nil)
     
     @IBOutlet weak var movieTableView: UITableView!
+    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var emptyImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +30,12 @@ class MovieViewController: UIViewController {
         
         movieTableView.dataSource = self
         movieTableView.delegate = self
+        movieTableView.rowHeight = UITableView.automaticDimension
+        movieTableView.estimatedRowHeight = UITableView.automaticDimension
         movieTableView.tableHeaderView = searchController.searchBar
+        
+        emptyView.visibility = .visible
+        movieTableView.visibility = .gone
         
         self.navigationItem.title = "Now Playing"
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.14, green: 0.86, blue: 0.73, alpha: 1.0)
@@ -38,6 +45,7 @@ class MovieViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        emptyImage.image = UIImage(named: "loading")
         apiManager.delegate = self
         apiManager.fetchMovieToday()
     }
@@ -55,8 +63,16 @@ extension MovieViewController: APIManagerDelegate {
     func didUpdateResult(_ apiManager: APIManager, result: Data) {
         DispatchQueue.main.async {
             if let list = parseJSONMovieAll(result){
-                self.movieList = list
-                self.movieTableView.reloadData()
+                if list.count > 0 {
+                    self.movieList = list
+                    self.movieTableView.reloadData()
+                    self.emptyView.visibility = .gone
+                    self.movieTableView.visibility = .visible
+                } else {
+                    self.emptyView.visibility = .visible
+                    self.movieTableView.visibility = .gone
+                }
+                self.emptyImage.image = UIImage(named: "emptyList")
             }
         }
     }
@@ -78,7 +94,7 @@ extension MovieViewController: UISearchResultsUpdating{
 
 extension MovieViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.movieList.count
+        return self.movieList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

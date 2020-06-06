@@ -12,6 +12,7 @@ import CoreData
 class MovieFavoriteViewController: UIViewController {
     
     @IBOutlet weak var favoriteMovieTableView: UITableView!
+    @IBOutlet weak var emptyView: UIView!
     
     var listMovie: [MovieEntities] = []
     var selectedMovie: MovieModel?
@@ -21,14 +22,27 @@ class MovieFavoriteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        emptyView.visibility = .gone
+        favoriteMovieTableView.visibility = .visible
+        
         favoriteMovieTableView.dataSource = self
         favoriteMovieTableView.delegate = self
+        favoriteMovieTableView.rowHeight = UITableView.automaticDimension
+        favoriteMovieTableView.estimatedRowHeight = UITableView.automaticDimension
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         do {
             let memberFect = NSFetchRequest<NSFetchRequestResult>(entityName: "MovieEntities")
             listMovie = try context.fetch(memberFect) as! [MovieEntities]
+            if listMovie.count > 0 {
+                emptyView.visibility = .gone
+                favoriteMovieTableView.visibility = .visible
+            } else {
+                emptyView.visibility = .visible
+                favoriteMovieTableView.visibility = .gone
+            }
         } catch {
             print(error.localizedDescription)
         }
@@ -47,7 +61,7 @@ class MovieFavoriteViewController: UIViewController {
 
 extension MovieFavoriteViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.listMovie.count
+        return self.listMovie.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
